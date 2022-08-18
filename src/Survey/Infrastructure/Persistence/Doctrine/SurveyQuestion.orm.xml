@@ -6,14 +6,17 @@
 
     <entity name="SurveySystem\Survey\Domain\SurveyQuestion" table="survey_questions">
         <id name="id" type="string" column="id" length="36" />
-        <field name="name" type="string" column="name" length="255" />
-        <field name="description" type="text" column="description" nullable="true" />
+        <field name="question" type="text" column="question" />
         <field name="createdAt" column="created_at" type="datetime"/>
         <field name="updatedAt" column="updated_at" type="datetime"/>
-        <field name="enabled" column="enabled" type="integer">
+        <field name="position" column="position" type="integer" nullable="true"/>
+        <field name="enabled" column="enabled" type="boolean">
             <options>
                 <option name="default">1</option>
             </options>
         </field>
+        <many-to-one field="survey" target-entity="SurveySystem\Survey\Domain\Survey">
+            <join-column name="survey_id" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
     </entity>
 </doctrine-mapping>
