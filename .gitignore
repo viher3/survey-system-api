@@ -10,4 +10,4 @@
 ###< symfony/framework-bundle ###
 
 ### phpstorm ###
-/.idea/*
+/.idea/
