@@ -6,7 +6,7 @@ use SurveySystem\Shared\Domain\Aggregate\AggregateRoot;
 
 class Survey extends AggregateRoot
 {
-    private SurveyId $id;
+    private string $id;
 
     private string $name;
 
@@ -19,12 +19,12 @@ class Survey extends AggregateRoot
     private bool $enabled;
 
     /**
-     * @param SurveyId $id
+     * @param string $id
      * @param string $name
      * @param string|null $description
      * @param bool $enabled
      */
-    public function __construct(SurveyId $id, string $name, ?string $description = null, bool $enabled = true)
+    public function __construct(string $id, string $name, ?string $description = null, bool $enabled = true)
     {
         $this->id = $id;
         $this->name = $name;
@@ -35,9 +35,9 @@ class Survey extends AggregateRoot
     }
 
     /**
-     * @return SurveyId
+     * @return string
      */
-    public function id(): SurveyId
+    public function id(): string
     {
         return $this->id;
     }
