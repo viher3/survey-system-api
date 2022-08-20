@@ -1,0 +1,30 @@
+SurveySystem\Survey\Domain\Survey:
+  shortName: 'Survey'
+  description: 'Resource'
+  iri: 'https://schema.org/Survey'
+  attributes: []
+  collectionOperations: []
+
+  itemOperations:
+
+    get_survey_detail__:
+      method: 'GET'
+      path: '/survey/{id}'
+      schemes: [ 'https', 'http' ]
+      controller: SurveySystem\Apps\Api\Controller\Survey\GetSurveyDetailByIdController
+      defaults:
+        _api_receive: false
+      swagger_context:
+        summary: 'Get Survey detail by id'
+        description: ''
+        parameters:
+          - in: query
+            name: sageX3Code
+            required: false
+            schema:
+              type: string
+        responses:
+          200:
+            description: 'Survey detail'
+          400:
+            description: 'Incorrect Parameters'
