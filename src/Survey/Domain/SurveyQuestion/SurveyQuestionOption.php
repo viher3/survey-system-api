@@ -10,6 +10,8 @@ class SurveyQuestionOption
 
     private array $values;
 
+    private SurveyQuestion $question;
+
     private int $position;
 
     private bool $enabled;
@@ -25,11 +27,18 @@ class SurveyQuestionOption
      * @param int $position
      * @param bool $enabled
      */
-    public function __construct(string $id, string $type, array $values, int $position, bool $enabled = true)
+    public function __construct(
+        string $id,
+        SurveyQuestion $question,
+        string $type,
+        array $values,
+        int $position,
+        bool $enabled = true)
     {
         $this->id = $id;
         $this->type = $type;
         $this->values = $values;
+        $this->question = $question;
         $this->position = $position;
         $this->enabled = $enabled;
         $this->createdAt = new \DateTime();
