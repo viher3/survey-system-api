@@ -1,4 +1,4 @@
-SurveySystem\Survey\Domain\Survey:
+SurveySystem\Survey\Domain\Survey\Survey:
   shortName: 'Survey'
   description: 'Resource'
   iri: 'https://schema.org/Survey'

@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="SurveySystem\Survey\Domain\Survey" table="surveys">
+    <entity name="SurveySystem\Survey\Domain\Survey\Survey" table="surveys">
         <id name="id" type="string" column="id" length="36"/>
         <field name="name" type="string" column="name" length="255" />
         <field name="description" type="text" column="description" nullable="true" />

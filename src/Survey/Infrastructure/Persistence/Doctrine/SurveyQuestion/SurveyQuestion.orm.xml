@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="SurveySystem\Survey\Domain\SurveyQuestion" table="survey_questions">
+    <entity name="SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestion" table="survey_questions">
         <id name="id" type="string" column="id" length="36" />
         <field name="question" type="text" column="question" />
         <field name="createdAt" column="created_at" type="datetime"/>
@@ -15,7 +15,7 @@
                 <option name="default">1</option>
             </options>
         </field>
-        <many-to-one field="survey" target-entity="SurveySystem\Survey\Domain\Survey">
+        <many-to-one field="survey" target-entity="SurveySystem\Survey\Domain\Survey\Survey">
             <join-column name="survey_id" referenced-column-name="id" nullable="false"/>
         </many-to-one>
     </entity>

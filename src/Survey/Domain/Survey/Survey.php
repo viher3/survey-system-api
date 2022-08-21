@@ -1,6 +1,6 @@
 <?php
 
-namespace SurveySystem\Survey\Domain;
+namespace SurveySystem\Survey\Domain\Survey;
 
 use SurveySystem\Shared\Domain\Aggregate\AggregateRoot;
 

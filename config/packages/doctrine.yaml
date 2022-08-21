@@ -13,9 +13,15 @@ doctrine:
             Survey:
                 is_bundle: false
                 type: xml
-                dir: '%kernel.project_dir%/src/Survey/Infrastructure/Persistence/Doctrine'
-                prefix: 'SurveySystem\Survey\Domain'
+                dir: '%kernel.project_dir%/src/Survey/Infrastructure/Persistence/Doctrine/Survey'
+                prefix: 'SurveySystem\Survey\Domain\Survey'
                 alias: Survey
+            SurveyQuestion:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Survey/Infrastructure/Persistence/Doctrine/SurveyQuestion'
+                prefix: 'SurveySystem\Survey\Domain\SurveyQuestion'
+                alias: SurveyQuestion
 
 when@test:
     doctrine:

@@ -2,9 +2,9 @@
 
 namespace SurveySystem\Survey\Infrastructure\Persistence;
 
-use SurveySystem\Survey\Domain\Survey;
-use SurveySystem\Survey\Domain\SurveyId;
-use SurveySystem\Survey\Domain\SurveyRepository;
+use SurveySystem\Survey\Domain\Survey\Survey;
+use SurveySystem\Survey\Domain\Survey\SurveyId;
+use SurveySystem\Survey\Domain\Survey\SurveyRepository;
 use SurveySystem\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 
 class DoctrineSurveyRepository extends DoctrineRepository implements SurveyRepository

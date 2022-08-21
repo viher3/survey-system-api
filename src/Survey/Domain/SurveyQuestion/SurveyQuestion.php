@@ -1,10 +1,13 @@
 <?php
 
-namespace SurveySystem\Survey\Domain;
+namespace SurveySystem\Survey\Domain\SurveyQuestion;
 
-class SurveyQuestion
+use SurveySystem\Survey\Domain\Survey\Survey;
+use SurveySystem\Shared\Domain\Aggregate\AggregateRoot;
+
+class SurveyQuestion extends AggregateRoot
 {
-    private SurveyQuestionId $id;
+    private string $id;
 
     private string $question;
 
@@ -26,7 +29,7 @@ class SurveyQuestion
      * @param bool $enabled
      */
     public function __construct(
-        SurveyQuestionId $id,
+        string $id,
         string $question,
         Survey $survey,
         ?int $position,
@@ -37,12 +40,14 @@ class SurveyQuestion
         $this->position = $position;
         $this->enabled = $enabled;
         $this->survey = $survey;
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     /**
-     * @return SurveyQuestionId
+     * @return string
      */
-    public function id(): SurveyQuestionId
+    public function id(): string
     {
         return $this->id;
     }

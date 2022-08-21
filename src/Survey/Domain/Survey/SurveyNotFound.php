@@ -1,6 +1,6 @@
 <?php
 
-namespace SurveySystem\Survey\Domain;
+namespace SurveySystem\Survey\Domain\Survey;
 
 class SurveyNotFound extends \Exception
 {
