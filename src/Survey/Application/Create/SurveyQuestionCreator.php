@@ -6,7 +6,9 @@ use SurveySystem\Survey\Domain\Survey\SurveyId;
 use SurveySystem\Survey\Domain\Survey\SurveyRepository;
 use SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestion;
 use SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestionId;
+use SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestionOptionType;
 use SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestionRepository;
+use function Lambdish\Phunctional\map;
 
 class SurveyQuestionCreator
 {
@@ -39,6 +41,15 @@ class SurveyQuestionCreator
             $command->position(),
             $command->enabled()
         );
+
+        map(function(array $option) use ($surveyQuestion){
+            $surveyQuestion->addOption(
+                new SurveyQuestionOptionType($option['type']),
+                $option['values'],
+                $option['position'],
+                $option['enabled'] ?? true
+            );
+        }, $command->getOptions());
 
         $this->surveyQuestionRepository->save($surveyQuestion);
     }

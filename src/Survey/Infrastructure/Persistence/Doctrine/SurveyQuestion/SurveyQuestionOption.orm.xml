@@ -16,7 +16,7 @@
                 <option name="default">1</option>
             </options>
         </field>
-        <many-to-one field="question" target-entity="SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestion">
+        <many-to-one field="question" target-entity="SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestion" inversed-by="options">
             <join-column name="question_id" referenced-column-name="id" nullable="false"/>
         </many-to-one>
     </entity>

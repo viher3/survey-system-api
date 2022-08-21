@@ -29,16 +29,16 @@ class SurveyQuestionOption
      */
     public function __construct(
         string $id,
-        SurveyQuestion $question,
+//        SurveyQuestion $question,
         string $type,
         array $values,
         int $position,
         bool $enabled = true)
     {
         $this->id = $id;
-        $this->type = $type;
+        $this->type = (new SurveyQuestionOptionType($type))->value();
         $this->values = $values;
-        $this->question = $question;
+//        $this->question = $question;
         $this->position = $position;
         $this->enabled = $enabled;
         $this->createdAt = new \DateTime();

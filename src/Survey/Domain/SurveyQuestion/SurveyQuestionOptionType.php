@@ -14,6 +14,13 @@ class SurveyQuestionOptionType extends StringValueObject
         self::TYPE_RADIO
     ];
 
+    public function __construct(string $value)
+    {
+        self::assertType($value);
+        parent::__construct($value);
+    }
+
+
     public static function text() :self
     {
         return new self(self::TYPES[self::TYPE_TEXT]);
@@ -22,5 +29,12 @@ class SurveyQuestionOptionType extends StringValueObject
     public static function radio() :self
     {
         return new self(self::TYPES[self::TYPE_RADIO]);
+    }
+
+    public static function assertType(string $type) : void
+    {
+        if(!in_array($type, self::TYPES)){
+            throw new \Exception('Invalid SurveyQuestionOptionType value: ' . $type);
+        }
     }
 }

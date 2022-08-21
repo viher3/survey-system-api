@@ -44,7 +44,6 @@ class SurveyQuestion extends AggregateRoot
         $this->survey = $survey;
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
-        $this->options = [];
     }
 
     /**
@@ -55,7 +54,7 @@ class SurveyQuestion extends AggregateRoot
      * @param bool $enabled
      * @return void
      */
-    public static function create(SurveyQuestionId $id, string $question, Survey $survey, int $position, bool $enabled = true) : self
+    public static function create(SurveyQuestionId $id, string $question, Survey $survey, int $position, bool $enabled = true): self
     {
         return new self(
             $id->value(),
@@ -82,7 +81,7 @@ class SurveyQuestion extends AggregateRoot
     {
         $this->options[] = new SurveyQuestionOption(
             SurveyQuestionOptionId::random()->value(),
-            $this,
+//                $this,
             $type->value(),
             $values,
             $position,
@@ -151,6 +150,12 @@ class SurveyQuestion extends AggregateRoot
      */
     public function getOptions(): array
     {
-        return $this->options;
+        $options = [];
+
+        foreach($this->options as $option){
+            $options[] = $option;
+        }
+
+        return $options;
     }
 }

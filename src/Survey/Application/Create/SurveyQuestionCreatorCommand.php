@@ -8,18 +8,28 @@ class SurveyQuestionCreatorCommand
     private string $surveyId;
     private int $position;
     private bool $enabled;
+    private array $options;
 
+    /**
+     * @param string $question
+     * @param string $surveyId
+     * @param int $position
+     * @param bool $enabled
+     * @param array $options
+     */
     public function __construct(
         string $question,
         string $surveyId,
         int $position,
-        bool $enabled=true
+        bool $enabled=true,
+        array $options = []
     )
     {
         $this->question = $question;
         $this->surveyId = $surveyId;
         $this->position = $position;
         $this->enabled = $enabled;
+        $this->options = $options;
     }
 
     /**
@@ -52,5 +62,13 @@ class SurveyQuestionCreatorCommand
     public function enabled(): bool
     {
         return $this->enabled;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions(): array
+    {
+        return $this->options;
     }
 }

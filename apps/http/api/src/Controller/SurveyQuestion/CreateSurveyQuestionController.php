@@ -3,12 +3,12 @@
 namespace SurveySystem\Apps\Api\Controller\SurveyQuestion;
 
 use Assert\Assertion;
-use SurveySystem\Survey\Application\Create\SurveyQuestionCreatorCommand;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use function Lambdish\Phunctional\map;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use SurveySystem\Survey\Application\Create\SurveyQuestionCreator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use function Lambdish\Phunctional\map;
+use SurveySystem\Survey\Application\Create\SurveyQuestionCreatorCommand;
 
 class CreateSurveyQuestionController extends AbstractController
 {
@@ -37,7 +37,8 @@ class CreateSurveyQuestionController extends AbstractController
                     $params['question'],
                     $params['surveyId'],
                     $params['position'],
-                    $params['enabled'] ?? true
+                    $params['enabled'] ?? true,
+                    $params['options'] ?? []
                 )
             );
 
@@ -47,16 +48,23 @@ class CreateSurveyQuestionController extends AbstractController
         }
     }
 
+    /**
+     * @param array $params
+     * @return void
+     */
     private function assertParams(array $params) : void
     {
-        $notEmptyParams = [
-            'question', 'surveyId', 'position'
-        ];
+        // Required params
+        $notEmptyParams = ['question', 'surveyId', 'position', 'options'];
 
-        map(function($value, string $param) use($notEmptyParams){
-            if(in_array($param, $notEmptyParams)){
-                Assertion::notEmpty($value, 'Param "' . $param . '" is empty.');
-            }
-        }, $params);
+        map(function(string $param) use($params){
+            $value = $params[$param] ?? null;
+            Assertion::notEmpty($value, 'Required param "' . $param . '" is empty.');
+        }, $notEmptyParams);
+
+        // Validate Options
+        map(function(array $option){
+            Assertion::notEmpty($option['type'], 'Property "type" not found for option.');
+        }, $params['options']);
     }
 }
