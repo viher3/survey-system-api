@@ -18,5 +18,12 @@
         <many-to-one field="survey" target-entity="SurveySystem\Survey\Domain\Survey\Survey">
             <join-column name="survey_id" referenced-column-name="id" nullable="false"/>
         </many-to-one>
+        <one-to-many field="options"
+                     target-entity="SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestionOption"
+                     mapped-by="question">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
     </entity>
 </doctrine-mapping>

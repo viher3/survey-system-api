@@ -21,6 +21,8 @@ class SurveyQuestion extends AggregateRoot
 
     private \DateTimeInterface $updatedAt;
 
+    private array $options;
+
     /**
      * @param SurveyQuestionId $id
      * @param string $question
@@ -42,6 +44,31 @@ class SurveyQuestion extends AggregateRoot
         $this->survey = $survey;
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
+        $this->options = [];
+    }
+
+    /**
+     * @param string $type
+     * @param array $values
+     * @param int $position
+     * @param bool $enabled
+     * @return void
+     */
+    public function addOption(
+        SurveyQuestionOptionType $type,
+        array $values,
+        int $position,
+        bool $enabled = true
+    ) : void
+    {
+        $this->options[] = new SurveyQuestionOption(
+            SurveyQuestionOptionId::random()->value(),
+            $this,
+            $type->value(),
+            $values,
+            $position,
+            $enabled
+        );
     }
 
     /**
