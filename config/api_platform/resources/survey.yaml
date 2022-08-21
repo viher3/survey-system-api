@@ -7,7 +7,7 @@ SurveySystem\Survey\Domain\Survey\Survey:
 
   itemOperations:
 
-    get_survey_detail__:
+    get_survey_detail:
       method: 'GET'
       path: '/survey/{id}'
       schemes: [ 'https', 'http' ]

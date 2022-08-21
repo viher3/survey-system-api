@@ -5,7 +5,7 @@ SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestion:
   attributes: []
   collectionOperations:
 
-    create_survey_question__:
+    create_survey_question:
       method: 'POST'
       path: '/survey-question'
       schemes: [ 'https', 'http' ]
