@@ -5,14 +5,14 @@ namespace SurveySystem\Survey\Application\Create;
 class SurveyQuestionCreatorCommand
 {
     private string $question;
-    private int $surveyId;
-    private ?int $position;
+    private string $surveyId;
+    private int $position;
     private bool $enabled;
 
     public function __construct(
         string $question,
-        int $surveyId,
-        ?int $position,
+        string $surveyId,
+        int $position,
         bool $enabled=true
     )
     {
@@ -31,9 +31,9 @@ class SurveyQuestionCreatorCommand
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function surveyId(): int
+    public function surveyId(): string
     {
         return $this->surveyId;
     }

@@ -37,26 +37,26 @@ class CreateSurveyQuestionController extends AbstractController
                     $params['question'],
                     $params['surveyId'],
                     $params['position'],
-                    $params['enabled'] ?? 1
+                    $params['enabled'] ?? true
                 )
             );
 
             return $this->json([], 200);
         } catch (\Exception $e) {
-            return $this->json( [
-                'error' => $e->getMessage()
-            ], 500);
+            throw $e;
         }
     }
 
-    private function assertParams(array $params)
+    private function assertParams(array $params) : void
     {
         $notEmptyParams = [
             'question', 'surveyId', 'position'
         ];
 
-        map(function(string $param){
-            Assertion::notEmpty($param);
-        }, $notEmptyParams);
+        map(function($value, string $param) use($notEmptyParams){
+            if(in_array($param, $notEmptyParams)){
+                Assertion::notEmpty($value, 'Param "' . $param . '" is empty.');
+            }
+        }, $params);
     }
 }

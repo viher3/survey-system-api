@@ -21,7 +21,7 @@ class SurveyQuestion extends AggregateRoot
 
     private \DateTimeInterface $updatedAt;
 
-    private array $options;
+    private $options;
 
     /**
      * @param SurveyQuestionId $id
@@ -144,5 +144,13 @@ class SurveyQuestion extends AggregateRoot
     public function updatedAt(): \DateTimeInterface
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions(): array
+    {
+        return $this->options;
     }
 }
