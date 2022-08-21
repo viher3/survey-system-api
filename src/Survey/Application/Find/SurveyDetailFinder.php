@@ -2,9 +2,9 @@
 
 namespace SurveySystem\Survey\Application\Find;
 
-use SurveySystem\Survey\Domain\SurveyId;
-use SurveySystem\Survey\Domain\SurveyNotFound;
-use SurveySystem\Survey\Domain\SurveyRepository;
+use SurveySystem\Survey\Domain\Survey\SurveyId;
+use SurveySystem\Survey\Domain\Survey\SurveyNotFound;
+use SurveySystem\Survey\Domain\Survey\SurveyRepository;
 
 final class SurveyDetailFinder
 {

@@ -1,0 +1,40 @@
+SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestion:
+  shortName: 'SurveyQuestion'
+  description: 'Resource'
+  iri: 'https://schema.org/SurveyQuestion'
+  attributes: []
+  collectionOperations:
+
+    create_survey_question__:
+      method: 'POST'
+      path: '/survey-question'
+      schemes: [ 'https', 'http' ]
+      controller: SurveySystem\Apps\Api\Controller\SurveyQuestion\CreateSurveyQuestionController
+      defaults:
+        _api_receive: false
+      openapi_context:
+        summary: 'Create SurveyQuestion'
+        consumes:
+          - application/json
+
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  surveyId: { type: string }
+                  question: { type: string }
+                  position: { type: integer }
+              example:
+                surveyId: '6f6de1ac-548e-4a79-a744-b660a02d865c'
+                question: 'Where do you live?'
+                position: 1
+
+        responses:
+          200:
+            description: 'Survey created'
+          400:
+            description: 'Incorrect Parameters'
+
+  itemOperations: []

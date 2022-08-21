@@ -17,12 +17,7 @@ SurveySystem\Survey\Domain\Survey\Survey:
       swagger_context:
         summary: 'Get Survey detail by id'
         description: ''
-        parameters:
-          - in: query
-            name: sageX3Code
-            required: false
-            schema:
-              type: string
+        parameters: []
         responses:
           200:
             description: 'Survey detail'

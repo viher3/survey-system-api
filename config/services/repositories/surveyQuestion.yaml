@@ -1,0 +1,3 @@
+services:
+
+  SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestionRepository: '@SurveySystem\Survey\Infrastructure\Persistence\DoctrineSurveyQuestionRepository'

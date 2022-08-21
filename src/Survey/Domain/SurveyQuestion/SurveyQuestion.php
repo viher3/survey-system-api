@@ -11,7 +11,7 @@ class SurveyQuestion extends AggregateRoot
 
     private string $question;
 
-    private ?int $position;
+    private int $position;
 
     private bool $enabled;
 
@@ -34,8 +34,8 @@ class SurveyQuestion extends AggregateRoot
         string $id,
         string $question,
         Survey $survey,
-        ?int $position,
-        bool $enabled=true)
+        int    $position,
+        bool   $enabled = true)
     {
         $this->id = $id;
         $this->question = $question;
@@ -48,6 +48,25 @@ class SurveyQuestion extends AggregateRoot
     }
 
     /**
+     * @param SurveyQuestionId $id
+     * @param string $question
+     * @param Survey $survey
+     * @param int $position
+     * @param bool $enabled
+     * @return void
+     */
+    public static function create(SurveyQuestionId $id, string $question, Survey $survey, int $position, bool $enabled = true) : self
+    {
+        return new self(
+            $id->value(),
+            $question,
+            $survey,
+            $position,
+            $enabled
+        );
+    }
+
+    /**
      * @param string $type
      * @param array $values
      * @param int $position
@@ -56,10 +75,10 @@ class SurveyQuestion extends AggregateRoot
      */
     public function addOption(
         SurveyQuestionOptionType $type,
-        array $values,
-        int $position,
-        bool $enabled = true
-    ) : void
+        array                    $values,
+        int                      $position,
+        bool                     $enabled = true
+    ): void
     {
         $this->options[] = new SurveyQuestionOption(
             SurveyQuestionOptionId::random()->value(),

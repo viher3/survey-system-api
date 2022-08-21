@@ -2,7 +2,7 @@
 
 namespace SurveySystem\Survey\Application\Find;
 
-use SurveySystem\Survey\Domain\Survey;
+use SurveySystem\Survey\Domain\Survey\Survey;
 
 class SurveyDetailFinderResponse
 {
