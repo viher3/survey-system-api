@@ -7,7 +7,7 @@
     <entity name="SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestionOption" table="survey_question_options">
         <id name="id" type="string" column="id" length="36" />
         <field name="type" type="string" column="type" length="255" />
-        <field name="values" type="text" column="values" />
+        <field name="values" type="text" column="option_values" />
         <field name="createdAt" column="created_at" type="datetime"/>
         <field name="updatedAt" column="updated_at" type="datetime"/>
         <field name="position" column="position" type="integer" nullable="true"/>

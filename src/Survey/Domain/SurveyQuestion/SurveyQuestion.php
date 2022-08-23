@@ -81,7 +81,7 @@ class SurveyQuestion extends AggregateRoot
     {
         $this->options[] = new SurveyQuestionOption(
             SurveyQuestionOptionId::random()->value(),
-//                $this,
+            $this,
             $type->value(),
             $values,
             $position,
@@ -152,7 +152,7 @@ class SurveyQuestion extends AggregateRoot
     {
         $options = [];
 
-        foreach($this->options as $option){
+        foreach ($this->options as $option) {
             $options[] = $option;
         }
 

@@ -8,7 +8,7 @@ class SurveyQuestionOption
 
     private string $type;
 
-    private array $values;
+    private string $values;
 
     private SurveyQuestion $question;
 
@@ -22,6 +22,7 @@ class SurveyQuestionOption
 
     /**
      * @param string $id
+     * @param SurveyQuestion $question
      * @param string $type
      * @param array $values
      * @param int $position
@@ -29,7 +30,7 @@ class SurveyQuestionOption
      */
     public function __construct(
         string $id,
-//        SurveyQuestion $question,
+        SurveyQuestion $question,
         string $type,
         array $values,
         int $position,
@@ -37,8 +38,8 @@ class SurveyQuestionOption
     {
         $this->id = $id;
         $this->type = (new SurveyQuestionOptionType($type))->value();
-        $this->values = $values;
-//        $this->question = $question;
+        $this->values = json_encode($values);
+        $this->question = $question;
         $this->position = $position;
         $this->enabled = $enabled;
         $this->createdAt = new \DateTime();
@@ -66,7 +67,7 @@ class SurveyQuestionOption
      */
     public function values(): array
     {
-        return $this->values;
+        return json_decode($this->values);
     }
 
     /**
