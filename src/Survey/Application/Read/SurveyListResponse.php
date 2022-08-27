@@ -15,7 +15,7 @@ class SurveyListResponse extends ListResponse
      */
     public static function create(array $surveys, int $total): self
     {
-        $items[] = map(function (Survey $survey) {
+        $items = map(function (Survey $survey) {
             return [
                 'id' => $survey->id(),
                 'name' => $survey->name(),

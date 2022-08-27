@@ -2,6 +2,7 @@
 
 namespace SurveySystem\Survey\Application\Find;
 
+use SurveySystem\Shared\Domain\DateTime;
 use SurveySystem\Survey\Domain\Survey\Survey;
 
 class SurveyDetailFinderResponse
@@ -28,8 +29,8 @@ class SurveyDetailFinderResponse
             'name' => $this->survey->name(),
             'description' => $this->survey->description(),
             'enabled' => $this->survey->enabled(),
-            'createdAt' => $this->survey->createdAt(),
-            'updatedAt' => $this->survey->updatedAt()
+            'createdAt' => DateTime::create($this->survey->createdAt())->toDateTimeString(),
+            'updatedAt' => DateTime::create($this->survey->updatedAt())->toDateTimeString()
         ];
     }
 }
