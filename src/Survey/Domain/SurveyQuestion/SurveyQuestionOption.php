@@ -67,7 +67,7 @@ class SurveyQuestionOption
      */
     public function values(): array
     {
-        return json_decode($this->values);
+        return json_decode($this->values, true);
     }
 
     /**

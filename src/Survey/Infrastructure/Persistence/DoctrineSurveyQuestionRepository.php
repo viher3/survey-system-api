@@ -39,6 +39,7 @@ class DoctrineSurveyQuestionRepository extends DoctrineRepository implements Sur
         return $this->getRepository()
             ->createQueryBuilder('s')
             ->where('s.survey = :survey')
+            ->join('s.options', 'o')
             ->setParameter('survey', $surveyId)
             ->orderBy('s.position', 'ASC');
     }
