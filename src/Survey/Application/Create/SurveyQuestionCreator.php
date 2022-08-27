@@ -32,7 +32,7 @@ class SurveyQuestionCreator
      * @param SurveyQuestionCreatorCommand $command
      * @return void
      */
-    public function __invoke(SurveyQuestionCreatorCommand $command) : void
+    public function execute(SurveyQuestionCreatorCommand $command) : void
     {
         $surveyQuestion = SurveyQuestion::create(
             SurveyQuestionId::random(),

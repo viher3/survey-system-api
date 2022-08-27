@@ -15,4 +15,16 @@ interface SurveyRepository
      * @return Survey|null
      */
     public function search(SurveyId $id): ?Survey;
+
+    /**
+     * @param array $filters
+     * @return array
+     */
+    public function getList(array $filters = []) : array;
+
+    /**
+     * @param array $filters
+     * @return int
+     */
+    public function total(array $filters = []) : int;
 }

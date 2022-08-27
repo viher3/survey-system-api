@@ -32,7 +32,7 @@ class CreateSurveyQuestionController extends AbstractController
             $params = json_decode($request->getContent(), true);
             $this->assertParams($params);
 
-            $this->surveyQuestionCreator->__invoke(
+            $this->surveyQuestionCreator->execute(
                 new SurveyQuestionCreatorCommand(
                     $params['question'],
                     $params['surveyId'],

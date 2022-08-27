@@ -3,7 +3,22 @@ SurveySystem\Survey\Domain\Survey\Survey:
   description: 'Resource'
   iri: 'https://schema.org/Survey'
   attributes: []
-  collectionOperations: []
+  collectionOperations:
+
+    get_survey_list:
+      method: 'GET'
+      path: '/surveys'
+      schemes: [ 'https', 'http' ]
+      controller: SurveySystem\Apps\Api\Controller\Survey\GetSurveyListController
+      defaults:
+        _api_receive: false
+      swagger_context:
+        summary: 'Get Surveys list'
+        description: ''
+        parameters: [ ]
+        responses:
+          200:
+            description: 'Surveys list'
 
   itemOperations:
 
