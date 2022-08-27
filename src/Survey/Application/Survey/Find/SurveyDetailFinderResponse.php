@@ -1,6 +1,6 @@
 <?php
 
-namespace SurveySystem\Survey\Application\Find;
+namespace SurveySystem\Survey\Application\Survey\Find;
 
 use SurveySystem\Shared\Domain\DateTime;
 use SurveySystem\Survey\Domain\Survey\Survey;

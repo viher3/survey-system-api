@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use SurveySystem\Survey\Application\Survey\Read\SurveyListService;
 
-class GetSurveyListController extends AbstractController
+class GetSurveyQuestionListController extends AbstractController
 {
     private SurveyListService $surveyListService;
 

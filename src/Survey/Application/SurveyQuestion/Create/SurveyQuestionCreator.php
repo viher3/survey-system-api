@@ -1,6 +1,6 @@
 <?php
 
-namespace SurveySystem\Survey\Application\Create;
+namespace SurveySystem\Survey\Application\SurveyQuestion\Create;
 
 use SurveySystem\Survey\Domain\Survey\SurveyId;
 use SurveySystem\Survey\Domain\Survey\SurveyRepository;

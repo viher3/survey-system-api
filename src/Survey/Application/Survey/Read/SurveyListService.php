@@ -1,6 +1,6 @@
 <?php
 
-namespace SurveySystem\Survey\Application\Read;
+namespace SurveySystem\Survey\Application\Survey\Read;
 
 use SurveySystem\Survey\Domain\Survey\SurveyRepository;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace SurveySystem\Survey\Application\Read;
+namespace SurveySystem\Survey\Application\Survey\Read;
 
 use function Lambdish\Phunctional\map;
 use SurveySystem\Survey\Domain\Survey\Survey;

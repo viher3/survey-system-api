@@ -4,8 +4,8 @@ namespace SurveySystem\Apps\Api\Controller\Survey;
 
 use SurveySystem\Survey\Domain\Survey\SurveyId;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use SurveySystem\Survey\Application\Find\SurveyDetailFinder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use SurveySystem\Survey\Application\Survey\Find\SurveyDetailFinder;
 
 class GetSurveyDetailByIdController extends AbstractController
 {
