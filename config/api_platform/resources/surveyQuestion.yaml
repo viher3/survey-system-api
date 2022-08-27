@@ -37,4 +37,19 @@ SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestion:
           400:
             description: 'Incorrect Parameters'
 
-  itemOperations: []
+  itemOperations:
+
+    get_survey_question_list:
+      method: 'GET'
+      path: '/survey-questions/{id}'
+      schemes: [ 'https', 'http' ]
+      controller: SurveySystem\Apps\Api\Controller\SurveyQuestion\GetSurveyQuestionListController
+      defaults:
+        _api_receive: false
+      swagger_context:
+        summary: 'Get Survey Questions list'
+        description: ''
+        parameters: [ ]
+        responses:
+          200:
+            description: 'Survey Questions list'

@@ -1,31 +1,32 @@
 <?php
 
-namespace SurveySystem\Apps\Api\Controller\Survey;
+namespace SurveySystem\Apps\Api\Controller\SurveyQuestion;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use SurveySystem\Survey\Application\Survey\Read\SurveyListService;
+use SurveySystem\Survey\Application\SurveyQuestion\Read\SurveyQuestionListService;
 
 class GetSurveyQuestionListController extends AbstractController
 {
-    private SurveyListService $surveyListService;
+    private SurveyQuestionListService $surveyQuestionListService;
 
     /**
-     * @param SurveyListService $surveyListService
+     * @param SurveyQuestionListService $surveyQuestionListService
      */
-    public function __construct(SurveyListService $surveyListService)
+    public function __construct(SurveyQuestionListService $surveyQuestionListService)
     {
-        $this->surveyListService = $surveyListService;
+        $this->surveyQuestionListService = $surveyQuestionListService;
     }
 
     /**
+     * @param string $id
      * @param Request $request
      * @return JsonResponse
      */
-    public function __invoke(Request $request) : JsonResponse
+    public function __invoke(string $id, Request $request) : JsonResponse
     {
-        $response = $this->surveyListService->execute($request->request->all());
+        $response = $this->surveyQuestionListService->execute($id, $request->request->all());
         return new JsonResponse($response->toArray(), 200);
     }
 }
