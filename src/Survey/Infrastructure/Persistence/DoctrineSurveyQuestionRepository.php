@@ -30,27 +30,18 @@ class DoctrineSurveyQuestionRepository extends DoctrineRepository implements Sur
     }
 
     /**
-     * @param string $surveyId
-     * @param array $filters
-     * @return QueryBuilder
-     */
-    private function getListQueryBuilder(string $surveyId, array $filters = []) : QueryBuilder
-    {
-        return $this->getRepository()
-            ->createQueryBuilder('s')
-            ->where('s.survey = :survey')
-            ->leftjoin('s.options', 'o')
-            ->setParameter('survey', $surveyId)
-            ->orderBy('s.position', 'ASC');
-    }
-
-    /**
      * @param array $filters
      * @return array
      */
     public function getList(string $surveyId, array $filters = []) : array
     {
-        $queryBuilder = $this->getListQueryBuilder($surveyId, $filters);
+        $queryBuilder = $this->getRepository()
+            ->createQueryBuilder('s')
+            ->where('s.survey = :survey')
+            ->leftjoin('s.options', 'o')
+            ->setParameter('survey', $surveyId)
+            ->orderBy('s.position', 'ASC');
+
         return $queryBuilder->getQuery()->getResult();
     }
 
@@ -63,7 +54,12 @@ class DoctrineSurveyQuestionRepository extends DoctrineRepository implements Sur
     public function total(string $surveyId, array $filters = []) : int
     {
         try{
-            $queryBuilder = $this->getListQueryBuilder($surveyId, $filters)->select('count(1)');
+            $queryBuilder = $this->getRepository()
+                ->createQueryBuilder('s')
+                ->where('s.survey = :survey')
+                ->setParameter('survey', $surveyId)
+                ->select('count(1)');
+
             return (int) $queryBuilder->getQuery()->getSingleScalarResult();
         }catch (\Exception $e){
             return 0;
