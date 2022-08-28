@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillment" table="survey_fulfillment">
+        <id name="id" type="string" column="id" length="36" />
+        <field name="createdAt" column="created_at" type="datetime"/>
+
+        <many-to-one field="survey" target-entity="SurveySystem\Survey\Domain\Survey\Survey">
+            <join-column name="survey_id" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
+
+        <one-to-many
+            field="replies"
+            target-entity="SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillmentReply"
+            mapped-by="reply">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+    </entity>
+</doctrine-mapping>

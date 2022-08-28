@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillmentReply" table="survey_fulfillment_replies">
+        <id name="id" type="string" column="id" length="36" />
+        <field name="surveyQuestionId" column="survey_question_id" type="integer"/>
+        <field name="values" type="text" column="reply_values" />
+        <field name="createdAt" column="created_at" type="datetime"/>
+
+        <many-to-one field="surveyFulfillment" target-entity="SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillment">
+            <join-column name="survey_fulfillment_id" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>
