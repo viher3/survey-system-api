@@ -23,10 +23,6 @@ class SurveyQuestionListResponse extends ListResponse
             $optionsToAppend = [];
 
             foreach($surveyQuestion->getOptions() as $surveyQuestionOption){
-                if(!$surveyQuestionOption->enabled()) {
-                    continue;
-                }
-
                 $position = $surveyQuestionOption->position();
                 $option = [
                     'id' => $surveyQuestionOption->id(),
