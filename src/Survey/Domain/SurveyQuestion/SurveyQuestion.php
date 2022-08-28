@@ -47,17 +47,16 @@ class SurveyQuestion extends AggregateRoot
     }
 
     /**
-     * @param SurveyQuestionId $id
      * @param string $question
      * @param Survey $survey
      * @param int $position
      * @param bool $enabled
      * @return void
      */
-    public static function create(SurveyQuestionId $id, string $question, Survey $survey, int $position, bool $enabled = true): self
+    public static function create(string $question, Survey $survey, int $position, bool $enabled = true): self
     {
         return new self(
-            $id->value(),
+            SurveyQuestionId::random()->value(),
             $question,
             $survey,
             $position,

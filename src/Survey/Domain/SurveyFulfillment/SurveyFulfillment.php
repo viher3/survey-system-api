@@ -28,6 +28,18 @@ class SurveyFulfillment extends AggregateRoot
     }
 
     /**
+     * @param Survey $survey
+     * @return static
+     */
+    public static function create(Survey $survey) : self
+    {
+        return new self(
+            SurveyFulfillmentId::random()->value(),
+            $survey
+        );
+    }
+
+    /**
      * @param SurveyQuestionId $surveyQuestionId
      * @param array $values
      * @return void
@@ -65,6 +77,4 @@ class SurveyFulfillment extends AggregateRoot
     {
         return $this->createdAt;
     }
-
-
 }

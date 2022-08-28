@@ -35,7 +35,6 @@ class SurveyQuestionCreator
     public function execute(SurveyQuestionCreatorCommand $command) : void
     {
         $surveyQuestion = SurveyQuestion::create(
-            SurveyQuestionId::random(),
             $command->question(),
             $this->surveyRepository->search(new SurveyId($command->surveyId())),
             $command->position(),

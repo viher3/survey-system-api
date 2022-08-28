@@ -1,0 +1,3 @@
+services:
+
+  SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillmentRepository: '@SurveySystem\Survey\Infrastructure\Persistence\DoctrineSurveyFulfillmentRepository'
