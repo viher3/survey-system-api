@@ -46,6 +46,7 @@ class SurveyQuestionListResponse extends ListResponse
             return [
                 'id' => $surveyQuestion->id(),
                 'question' => $surveyQuestion->question(),
+                'position' => $surveyQuestion->position(),
                 'enabled' => $surveyQuestion->enabled(),
                 'options' => $options,
                 'createdAt' => DateTime::create($surveyQuestion->createdAt())->toDateTimeString(),
