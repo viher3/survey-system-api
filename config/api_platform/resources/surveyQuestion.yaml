@@ -1,5 +1,5 @@
 SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestion:
-  shortName: 'SurveyQuestion'
+  shortName: 'Survey Question'
   description: 'Resource'
   iri: 'https://schema.org/SurveyQuestion'
   attributes: []

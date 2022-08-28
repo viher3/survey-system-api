@@ -1,0 +1,43 @@
+SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillment:
+  shortName: 'Survey Fulfillment'
+  description: 'Resource'
+  iri: 'https://schema.org/SurveyFulfillment'
+  attributes: [ ]
+  collectionOperations:
+
+    create_survey_question:
+      method: 'POST'
+      path: '/survey-fulfillment'
+      schemes: [ 'https', 'http' ]
+      controller: SurveySystem\Apps\Api\Controller\SurveyFulfillment\CreateSurveyFulfillmentController
+      defaults:
+        _api_receive: false
+      openapi_context:
+        summary: 'Create SurveyFulfillment'
+        consumes:
+          - application/json
+
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  surveyId: { type: string }
+                  replies:
+                    type: object
+                    properties:
+                      question_id:
+                        type: string
+                      values:
+                        type: array
+                        items:
+                          type: string
+
+        responses:
+          200:
+            description: 'Survey Fulfillment'
+          400:
+            description: 'Incorrect Parameters'
+
+  itemOperations: [ ]
