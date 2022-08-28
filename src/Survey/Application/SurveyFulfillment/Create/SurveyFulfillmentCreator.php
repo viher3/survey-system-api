@@ -13,6 +13,7 @@ class SurveyFulfillmentCreator
 {
     private SurveyRepository $surveyRepository;
     private SurveyFulfillmentRepository $surveyFulfillmentRepository;
+    private string $surveyFulfillmentId;
 
     /**
      * @param SurveyRepository $surveyRepository
@@ -25,6 +26,7 @@ class SurveyFulfillmentCreator
     {
         $this->surveyRepository = $surveyRepository;
         $this->surveyFulfillmentRepository = $surveyFulfillmentRepository;
+        $this->surveyFulfillmentId = '';
     }
 
     /**
@@ -50,5 +52,14 @@ class SurveyFulfillmentCreator
         }
 
         $this->surveyFulfillmentRepository->save($surveyFulfillment);
+        $this->surveyFulfillmentId = $surveyFulfillment->id();
+    }
+
+    /**
+     * @return string
+     */
+    public function surveyFulfillmentId(): string
+    {
+        return $this->surveyFulfillmentId;
     }
 }

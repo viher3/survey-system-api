@@ -36,7 +36,9 @@ class CreateSurveyFulfillmentController extends AbstractController
                 new SurveyFulfillmentCreatorCommand($params['surveyId'], $params['replies'])
             );
 
-            return $this->json([], 200);
+            return $this->json([
+                'surveyFulfillmentId' => $this->surveyFulfillmentCreator->surveyFulfillmentId()
+            ], 200);
         } catch (\Exception $e) {
             throw $e;
         }

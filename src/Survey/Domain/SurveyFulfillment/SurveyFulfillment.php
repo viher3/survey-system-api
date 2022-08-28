@@ -47,7 +47,7 @@ class SurveyFulfillment extends AggregateRoot
     public function addReply(SurveyQuestionId $surveyQuestionId, array $values) : void
     {
         $this->replies[] = new SurveyFulfillmentReply(
-            $this->id,
+            SurveyFulfillmentReplyId::random(),
             $this,
             $surveyQuestionId,
             $values

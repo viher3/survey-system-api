@@ -6,7 +6,7 @@
 
     <entity name="SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillmentReply" table="survey_fulfillment_replies">
         <id name="id" type="string" column="id" length="36" />
-        <field name="surveyQuestionId" column="survey_question_id" type="integer"/>
+        <field name="surveyQuestionId" column="survey_question_id" type="string"/>
         <field name="values" type="text" column="reply_values" />
         <field name="createdAt" column="created_at" type="datetime"/>
 
