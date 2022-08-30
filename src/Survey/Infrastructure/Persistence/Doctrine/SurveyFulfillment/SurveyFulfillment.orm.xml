@@ -6,6 +6,7 @@
 
     <entity name="SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillment" table="survey_fulfillment">
         <id name="id" type="string" column="id" length="36" />
+        <field name="name" column="name" type="string" nullable="true"/>
         <field name="createdAt" column="created_at" type="datetime"/>
 
         <many-to-one field="survey" target-entity="SurveySystem\Survey\Domain\Survey\Survey">

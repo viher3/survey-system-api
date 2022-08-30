@@ -10,6 +10,8 @@ class SurveyFulfillment extends AggregateRoot
 {
     private string $id;
 
+    private ?string $name;
+
     private Survey $survey;
 
     private \DateTimeInterface $createdAt;
@@ -17,25 +19,30 @@ class SurveyFulfillment extends AggregateRoot
     private $replies;
 
     /**
+     * @param string $id
      * @param Survey $survey
+     * @param string|null $name
      */
-    public function __construct(string $id, Survey $survey)
+    public function __construct(string $id, Survey $survey, string $name = null)
     {
         $this->id = $id;
         $this->survey = $survey;
         $this->createdAt = new \DateTime();
         $this->replies = [];
+        $this->name = $name;
     }
 
     /**
      * @param Survey $survey
+     * @param string $name
      * @return static
      */
-    public static function create(Survey $survey) : self
+    public static function create(Survey $survey, string $name) : self
     {
         return new self(
             SurveyFulfillmentId::random()->value(),
-            $survey
+            $survey,
+            $name
         );
     }
 
@@ -76,5 +83,13 @@ class SurveyFulfillment extends AggregateRoot
     public function createdAt(): \DateTimeInterface
     {
         return $this->createdAt;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function name(): ?string
+    {
+        return $this->name;
     }
 }
