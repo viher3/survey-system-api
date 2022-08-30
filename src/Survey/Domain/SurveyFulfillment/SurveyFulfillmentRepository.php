@@ -11,4 +11,10 @@ interface SurveyFulfillmentRepository
      * @return void
      */
     public function save(SurveyFulfillment $surveyFulfillment): void;
+
+    /**
+     * @param array $surveyIds
+     * @return array
+     */
+    public function totalCountGroupedBySurveyIds(array $surveyIds): array;
 }

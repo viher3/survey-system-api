@@ -19,6 +19,30 @@ class DoctrineSurveyFulfillmentRepository extends DoctrineRepository implements 
     }
 
     /**
+     * @return array
+     */
+    public function totalCountGroupedBySurveyIds(array $surveyIds): array
+    {
+         $totalCountGroupBySurvey = [];
+
+         $totalCountResponse = $this->getRepository()
+            ->createQueryBuilder('f')
+            ->select('count(1) AS total, s.id AS surveyId')
+            ->join('f.survey', 's')
+            ->where('s.id IN (:surveyIds)')
+            ->setParameter('surveyIds', $surveyIds)
+            ->groupBy('f.survey')
+            ->getQuery()
+            ->getArrayResult();
+
+         foreach($totalCountResponse as $totalCount){
+             $totalCountGroupBySurvey[$totalCount['surveyId']]  = $totalCount['total'];
+         }
+
+         return $totalCountGroupBySurvey;
+    }
+
+    /**
      * @return EntityRepository
      */
     private function getRepository() : EntityRepository

@@ -12,18 +12,20 @@ class SurveyListResponse extends ListResponse
     /**
      * @param array $surveys
      * @param int $total
+     * @param array $totalSurveysFillment
      * @return static
      */
-    public static function create(array $surveys, int $total): self
+    public static function create(array $surveys, int $total, array $totalSurveysFillment): self
     {
-        $items = map(function (Survey $survey) {
+        $items = map(function (Survey $survey) use ($totalSurveysFillment) {
             return [
                 'id' => $survey->id(),
                 'name' => $survey->name(),
                 'description' => $survey->description(),
                 'enabled' => $survey->enabled(),
                 'createdAt' => DateTime::create($survey->createdAt())->toDateTimeString(),
-                'updated' => DateTime::create($survey->updatedAt())->toDateTimeString()
+                'updated' => DateTime::create($survey->updatedAt())->toDateTimeString(),
+                'totalFulfillment' => $totalSurveysFillment[$survey->id()] ?? 0
             ];
         }, $surveys);
 
