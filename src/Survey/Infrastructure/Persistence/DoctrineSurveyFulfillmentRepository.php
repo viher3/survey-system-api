@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityRepository;
 use SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillment;
 use SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillmentRepository;
 use SurveySystem\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
+use SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestion;
 
 class DoctrineSurveyFulfillmentRepository extends DoctrineRepository implements SurveyFulfillmentRepository
 {
@@ -19,6 +20,7 @@ class DoctrineSurveyFulfillmentRepository extends DoctrineRepository implements 
     }
 
     /**
+     * @param array $surveyIds
      * @return array
      */
     public function totalCountGroupedBySurveyIds(array $surveyIds): array
@@ -40,6 +42,35 @@ class DoctrineSurveyFulfillmentRepository extends DoctrineRepository implements 
          }
 
          return $totalCountGroupBySurvey;
+    }
+
+    /**
+     * @param array $filters
+     * @return array
+     */
+    public function listWithReplies(array $filters = []) : array
+    {
+        return $this->getRepository()->createQueryBuilder('f')
+                    ->select('f.id, f.name, r.id AS questionId, r.id AS replyId, r.values, f.createdAt')
+                    ->join('f.replies', 'r')
+                    ->join(SurveyQuestion::class, 'q', 'WITH', 'r.surveyQuestionId = q.id')
+                    ->orderBy('createdAt', 'desc')
+                    ->getQuery()
+                    ->getResult();
+    }
+
+    /**
+     * @param array $filters
+     * @return int
+     */
+    public function total(array $filters = []) : int
+    {
+        try{
+            $queryBuilder = $this->getRepository()->createQueryBuilder('f')->select('count(1)');
+            return (int) $queryBuilder->getQuery()->getSingleScalarResult();
+        }catch (\Exception $e){
+            return 0;
+        }
     }
 
     /**

@@ -17,4 +17,16 @@ interface SurveyFulfillmentRepository
      * @return array
      */
     public function totalCountGroupedBySurveyIds(array $surveyIds): array;
+
+    /**
+     * @param array $filters
+     * @return int
+     */
+    public function total(array $filters = []) : int;
+
+    /**
+     * @param array $filters
+     * @return array
+     */
+    public function listWithReplies(array $filters = []) : array;
 }
