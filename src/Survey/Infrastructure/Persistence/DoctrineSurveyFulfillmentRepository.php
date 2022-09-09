@@ -4,6 +4,7 @@ namespace SurveySystem\Survey\Infrastructure\Persistence;
 
 use Doctrine\ORM\EntityRepository;
 use SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillment;
+use SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillmentReply;
 use SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillmentRepository;
 use SurveySystem\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 use SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestion;
@@ -51,12 +52,11 @@ class DoctrineSurveyFulfillmentRepository extends DoctrineRepository implements 
     public function listWithReplies(array $filters = []) : array
     {
         return $this->getRepository()->createQueryBuilder('f')
-                    ->select('f.id, f.name, r.id AS questionId, r.id AS replyId, r.values, f.createdAt')
-                    ->join('f.replies', 'r')
+                    ->select('f.id, q.question, r.id AS questionId, r.id AS replyId, r.values, f.createdAt, q.position as questionPosition')
+                    ->join(SurveyFulfillmentReply::class, 'r', 'WITH', 'r.surveyFulfillment = f.id')
                     ->join(SurveyQuestion::class, 'q', 'WITH', 'r.surveyQuestionId = q.id')
-                    ->orderBy('createdAt', 'desc')
-                    ->getQuery()
-                    ->getResult();
+                    ->orderBy('f.createdAt', 'desc')
+                    ->getQuery()->getResult();
     }
 
     /**
