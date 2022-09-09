@@ -20,10 +20,10 @@ final class SurveyFulfillmentDetailFinder
      * @param array $filters
      * @return SurveyFulfillmentDetailResponse
      */
-    public function execute(array $filters = []) : SurveyFulfillmentDetailResponse
+    public function execute(string $id, array $filters = []) : SurveyFulfillmentDetailResponse
     {
-        $surveysFulfillment = $this->surveyFulfillmentRepository->listWithReplies($filters);
-        $totalSurveysFulfillment = $this->surveyFulfillmentRepository->total($filters);
+        $surveysFulfillment = $this->surveyFulfillmentRepository->listWithReplies($id, $filters);
+        $totalSurveysFulfillment = $this->surveyFulfillmentRepository->totalWithReplies($id, $filters);
         return SurveyFulfillmentDetailResponse::create($surveysFulfillment, $totalSurveysFulfillment);
     }
 }

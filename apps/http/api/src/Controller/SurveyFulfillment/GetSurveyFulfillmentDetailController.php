@@ -25,8 +25,9 @@ class GetSurveyFulfillmentDetailController extends AbstractController
      */
     public function __invoke(Request $request): JsonResponse
     {
-        $params = json_decode($request->getContent(), true) ?? [];
-        $response = $this->surveyFulfillmentDetailFinder->execute($params);
+        $id = $request->attributes->get('id');
+        $params = $request->query->all();
+        $response = $this->surveyFulfillmentDetailFinder->execute($id, $params);
         return $this->json($response->toArray(), 200);
     }
 }

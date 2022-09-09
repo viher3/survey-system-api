@@ -49,13 +49,15 @@ class DoctrineSurveyFulfillmentRepository extends DoctrineRepository implements 
      * @param array $filters
      * @return array
      */
-    public function listWithReplies(array $filters = []) : array
+    public function listWithReplies(string $id, array $filters = []) : array
     {
         $sortedSurveyFulfillments = [];
         $surveyFulfillments = $this->getRepository()->createQueryBuilder('f')
                     ->select('f.id, q.question, r.id AS questionId, r.id AS replyId, r.values, f.createdAt, q.position as questionPosition')
                     ->join(SurveyFulfillmentReply::class, 'r', 'WITH', 'r.surveyFulfillment = f.id')
                     ->join(SurveyQuestion::class, 'q', 'WITH', 'r.surveyQuestionId = q.id')
+                    ->where('f.id = :id')
+                    ->setParameter('id', $id)
                     ->orderBy('f.createdAt', 'desc')
                     ->getQuery()->getResult();
 
@@ -64,6 +66,26 @@ class DoctrineSurveyFulfillmentRepository extends DoctrineRepository implements 
         }
 
         return $sortedSurveyFulfillments;
+    }
+
+    /**
+     * @param array $filters
+     * @return int
+     */
+    public function totalWithReplies(string $id, array $filters = []) : int
+    {
+        try{
+            $queryBuilder = $this->getRepository()
+                                 ->createQueryBuilder('f')
+                                 ->select('count(1)')
+                                 ->join(SurveyFulfillmentReply::class, 'r', 'WITH', 'r.surveyFulfillment = f.id')
+                                 ->where('f.id = :id')
+                                 ->setParameter('id', $id);
+
+            return (int) $queryBuilder->getQuery()->getSingleScalarResult();
+        }catch (\Exception $e){
+            return 0;
+        }
     }
 
     /**
