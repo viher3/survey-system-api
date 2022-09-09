@@ -51,6 +51,7 @@ class DoctrineSurveyFulfillmentRepository extends DoctrineRepository implements 
      */
     public function listWithReplies(array $filters = []) : array
     {
+        $sortedSurveyFulfillments = [];
         $surveyFulfillments = $this->getRepository()->createQueryBuilder('f')
                     ->select('f.id, q.question, r.id AS questionId, r.id AS replyId, r.values, f.createdAt, q.position as questionPosition')
                     ->join(SurveyFulfillmentReply::class, 'r', 'WITH', 'r.surveyFulfillment = f.id')
@@ -58,7 +59,11 @@ class DoctrineSurveyFulfillmentRepository extends DoctrineRepository implements 
                     ->orderBy('f.createdAt', 'desc')
                     ->getQuery()->getResult();
 
-        return $surveyFulfillments;
+        foreach($surveyFulfillments as $surveyFulfillment){
+            $sortedSurveyFulfillments[$surveyFulfillment['questionPosition']] = $surveyFulfillment;
+        }
+
+        return $sortedSurveyFulfillments;
     }
 
     /**
