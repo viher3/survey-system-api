@@ -1,10 +1,10 @@
 <?php
 
-namespace SurveySystem\Survey\Application\SurveyFulfillment\Read;
+namespace SurveySystem\Survey\Application\SurveyFulfillment\Find;
 
 use SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillmentRepository;
 
-final class SurveyFulfillmentListService
+final class SurveyFulfillmentDetailFinder
 {
     private SurveyFulfillmentRepository $surveyFulfillmentRepository;
 
@@ -18,12 +18,12 @@ final class SurveyFulfillmentListService
 
     /**
      * @param array $filters
-     * @return SurveyFulfillmentListResponse
+     * @return SurveyFulfillmentDetailResponse
      */
-    public function execute(array $filters = []) : SurveyFulfillmentListResponse
+    public function execute(array $filters = []) : SurveyFulfillmentDetailResponse
     {
         $surveysFulfillment = $this->surveyFulfillmentRepository->listWithReplies($filters);
         $totalSurveysFulfillment = $this->surveyFulfillmentRepository->total($filters);
-        return SurveyFulfillmentListResponse::create($surveysFulfillment, $totalSurveysFulfillment);
+        return SurveyFulfillmentDetailResponse::create($surveysFulfillment, $totalSurveysFulfillment);
     }
 }

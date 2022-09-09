@@ -1,11 +1,11 @@
 <?php
 
-namespace SurveySystem\Survey\Application\SurveyFulfillment\Read;
+namespace SurveySystem\Survey\Application\SurveyFulfillment\Find;
 
 use function Lambdish\Phunctional\map;
 use SurveySystem\Shared\Application\Response\ListResponse;
 
-class SurveyFulfillmentListResponse extends ListResponse
+class SurveyFulfillmentDetailResponse extends ListResponse
 {
     /**
      * @param array $surveysFulfillments

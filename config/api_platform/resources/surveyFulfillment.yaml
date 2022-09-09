@@ -42,11 +42,11 @@ SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillment:
 
   itemOperations:
 
-    get_survey_fulfillment_list:
+    get_survey_fulfillment_detail:
       method: 'GET'
-      path: '/survey-fulfillment'
+      path: '/survey-fulfillment/{id}'
       schemes: [ 'https', 'http' ]
-      controller: SurveySystem\Apps\Api\Controller\SurveyFulfillment\GetSurveyFulfillmentListController
+      controller: SurveySystem\Apps\Api\Controller\SurveyFulfillment\GetSurveyFulfillmentDetailController
       defaults:
         _api_receive: false
       swagger_context:
