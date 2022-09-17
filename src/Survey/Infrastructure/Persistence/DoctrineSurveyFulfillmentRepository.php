@@ -64,13 +64,13 @@ class DoctrineSurveyFulfillmentRepository extends DoctrineRepository implements 
         $sortedSurveyFulfillments = [];
 
         foreach($surveyFulfillments as $key => $surveyFulfillment){
-            $questionPosition = $surveyFulfillment['questionPosition'];
-            $positions[$questionPosition] = $key;
+            $positions[$key] = $surveyFulfillment['questionPosition'];
         }
 
-        for($i=1;$i<=count($positions);$i++){
-            if(empty($positions[$i]) || empty($surveyFulfillments[$positions[$i]])) continue;
-            $sortedSurveyFulfillments[] = $surveyFulfillments[$positions[$i]];
+        asort($positions);
+
+        foreach($positions as $surveyFulfillmentCollectionKey => $position){
+            $sortedSurveyFulfillments[] = $surveyFulfillments[$surveyFulfillmentCollectionKey];
         }
 
         return $sortedSurveyFulfillments;
@@ -86,7 +86,9 @@ class DoctrineSurveyFulfillmentRepository extends DoctrineRepository implements 
             $queryBuilder = $this->getRepository()
                                  ->createQueryBuilder('f')
                                  ->select('count(1)')
-                                 ->join(SurveyFulfillmentReply::class, 'r', 'WITH', 'r.surveyFulfillment = f.id')
+                                 //->join(SurveyFulfillmentReply::class, 'r', 'WITH', 'r.surveyFulfillment = f.id')
+                                 ->leftjoin(SurveyFulfillmentReply::class, 'r', 'WITH', 'r.surveyFulfillment = f.id')
+                                 ->leftJoin(SurveyQuestion::class, 'q', 'WITH', 'r.surveyQuestionId = q.id')
                                  ->where('f.id = :id')
                                  ->setParameter('id', $id);
 

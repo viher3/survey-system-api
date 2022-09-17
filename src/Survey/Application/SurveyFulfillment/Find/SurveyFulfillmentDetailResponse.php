@@ -10,7 +10,7 @@ class SurveyFulfillmentDetailResponse extends ListResponse
     /**
      * @param array $surveysFulfillments
      * @param int $total
-     * @return SurveyFulfillmentListResponse
+     * @return SurveyFulfillmentDetailResponse
      */
     public static function create(array $surveysFulfillments, int $total)
     {
