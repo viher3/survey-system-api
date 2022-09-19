@@ -5,7 +5,7 @@ SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillment:
   attributes: [ ]
   collectionOperations:
 
-    create_survey_question:
+    create_survey_fulfillment:
       method: 'POST'
       path: '/survey-fulfillment'
       schemes: [ 'https', 'http' ]
@@ -40,4 +40,20 @@ SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillment:
           400:
             description: 'Incorrect Parameters'
 
-  itemOperations: [ ]
+  itemOperations:
+
+    get_survey_fulfillment_detail:
+      method: 'GET'
+      path: '/survey-fulfillment/{id}'
+      schemes: [ 'https', 'http' ]
+      controller: SurveySystem\Apps\Api\Controller\SurveyFulfillment\GetSurveyFulfillmentDetailController
+      defaults:
+        _api_receive: false
+      swagger_context:
+        summary: 'Get Survey Fulfillment list'
+        description: ''
+        parameters: [ ]
+        responses:
+          200:
+            description: 'Survey Fulfillment list'
+

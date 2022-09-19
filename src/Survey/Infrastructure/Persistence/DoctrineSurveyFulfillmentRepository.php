@@ -4,6 +4,7 @@ namespace SurveySystem\Survey\Infrastructure\Persistence;
 
 use Doctrine\ORM\EntityRepository;
 use SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillment;
+use SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillmentReply;
 use SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillmentRepository;
 use SurveySystem\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 use SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestion;
@@ -48,15 +49,53 @@ class DoctrineSurveyFulfillmentRepository extends DoctrineRepository implements 
      * @param array $filters
      * @return array
      */
-    public function listWithReplies(array $filters = []) : array
+    public function listWithReplies(string $id, array $filters = []) : array
     {
-        return $this->getRepository()->createQueryBuilder('f')
-                    ->select('f.id, f.name, r.id AS questionId, r.id AS replyId, r.values, f.createdAt')
-                    ->join('f.replies', 'r')
-                    ->join(SurveyQuestion::class, 'q', 'WITH', 'r.surveyQuestionId = q.id')
-                    ->orderBy('createdAt', 'desc')
-                    ->getQuery()
-                    ->getResult();
+        $surveyFulfillments = $this->getRepository()->createQueryBuilder('f')
+                    ->select('f.id, q.question, r.id AS questionId, r.id AS replyId, r.values, f.createdAt, q.position as questionPosition')
+                    ->leftjoin(SurveyFulfillmentReply::class, 'r', 'WITH', 'r.surveyFulfillment = f.id')
+                    ->leftJoin(SurveyQuestion::class, 'q', 'WITH', 'r.surveyQuestionId = q.id')
+                    ->where('f.id = :id')
+                    ->setParameter('id', $id)
+                    ->orderBy('f.createdAt', 'desc')
+                    ->getQuery()->getResult();
+
+        $positions = [];
+        $sortedSurveyFulfillments = [];
+
+        foreach($surveyFulfillments as $key => $surveyFulfillment){
+            $positions[$key] = $surveyFulfillment['questionPosition'];
+        }
+
+        asort($positions);
+
+        foreach($positions as $surveyFulfillmentCollectionKey => $position){
+            $sortedSurveyFulfillments[] = $surveyFulfillments[$surveyFulfillmentCollectionKey];
+        }
+
+        return $sortedSurveyFulfillments;
+    }
+
+    /**
+     * @param array $filters
+     * @return int
+     */
+    public function totalWithReplies(string $id, array $filters = []) : int
+    {
+        try{
+            $queryBuilder = $this->getRepository()
+                                 ->createQueryBuilder('f')
+                                 ->select('count(1)')
+                                 //->join(SurveyFulfillmentReply::class, 'r', 'WITH', 'r.surveyFulfillment = f.id')
+                                 ->leftjoin(SurveyFulfillmentReply::class, 'r', 'WITH', 'r.surveyFulfillment = f.id')
+                                 ->leftJoin(SurveyQuestion::class, 'q', 'WITH', 'r.surveyQuestionId = q.id')
+                                 ->where('f.id = :id')
+                                 ->setParameter('id', $id);
+
+            return (int) $queryBuilder->getQuery()->getSingleScalarResult();
+        }catch (\Exception $e){
+            return 0;
+        }
     }
 
     /**

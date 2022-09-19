@@ -28,5 +28,12 @@ interface SurveyFulfillmentRepository
      * @param array $filters
      * @return array
      */
-    public function listWithReplies(array $filters = []) : array;
+    public function listWithReplies(string $id, array $filters = []) : array;
+
+    /**
+     * @param string $id
+     * @param array $filters
+     * @return int
+     */
+    public function totalWithReplies(string $id, array $filters = []) : int;
 }
