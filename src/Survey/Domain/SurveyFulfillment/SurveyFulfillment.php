@@ -23,7 +23,7 @@ class SurveyFulfillment extends AggregateRoot
      * @param Survey $survey
      * @param string|null $name
      */
-    public function __construct(string $id, Survey $survey, string $name = null)
+    public function __construct(string $id, Survey $survey, ?string $name = null)
     {
         $this->id = $id;
         $this->survey = $survey;
@@ -37,12 +37,11 @@ class SurveyFulfillment extends AggregateRoot
      * @param string $name
      * @return static
      */
-    public static function create(Survey $survey, string $name) : self
+    public static function create(Survey $survey) : self
     {
         return new self(
             SurveyFulfillmentId::random()->value(),
-            $survey,
-            $name
+            $survey
         );
     }
 
