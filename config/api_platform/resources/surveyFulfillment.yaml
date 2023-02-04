@@ -49,7 +49,7 @@ SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillment:
       controller: SurveySystem\Apps\Api\Controller\SurveyFulfillment\GetSurveyFulfillmentDetailController
       defaults:
         _api_receive: false
-      swagger_context:
+      openapi_context:
         summary: 'Get Survey Fulfillment list'
         description: ''
         parameters: [ ]

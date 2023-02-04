@@ -46,7 +46,7 @@ SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestion:
       controller: SurveySystem\Apps\Api\Controller\SurveyQuestion\GetSurveyQuestionListController
       defaults:
         _api_receive: false
-      swagger_context:
+      openapi_context:
         summary: 'Get Survey Questions list'
         description: ''
         parameters: [ ]
