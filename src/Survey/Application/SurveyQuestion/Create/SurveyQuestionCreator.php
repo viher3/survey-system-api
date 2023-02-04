@@ -5,7 +5,6 @@ namespace SurveySystem\Survey\Application\SurveyQuestion\Create;
 use SurveySystem\Survey\Domain\Survey\SurveyId;
 use SurveySystem\Survey\Domain\Survey\SurveyRepository;
 use SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestion;
-use SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestionId;
 use SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestionOptionType;
 use SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestionRepository;
 use function Lambdish\Phunctional\map;

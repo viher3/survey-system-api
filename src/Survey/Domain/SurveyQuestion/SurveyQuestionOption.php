@@ -101,4 +101,17 @@ class SurveyQuestionOption
     {
         return $this->updatedAt;
     }
+
+    /**
+     * @return array
+     */
+    public function toPrimitives() : array
+    {
+        return [
+            'type' => $this->type,
+            'values' => $this->values(),
+            'position' => $this->position,
+            'enabled' => $this->enabled
+        ];
+    }
 }
