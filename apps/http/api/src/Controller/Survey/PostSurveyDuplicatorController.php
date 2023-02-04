@@ -29,7 +29,7 @@ class PostSurveyDuplicatorController extends AbstractController
     public function __invoke(Request $request) : JsonResponse
     {
         try{
-            $id = $request->query->get('id');
+            $id = $request->attributes->get('id');
             Assertion::notEmpty($id, 'Survey id parameter is required');
 
             $surveyDuplicatorCommand = new SurveyDuplicatorCommand($id);

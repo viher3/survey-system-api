@@ -20,12 +20,12 @@ final class SurveyDuplicator
 
     /**
      * @param SurveyDuplicatorCommand $command
-     * @return SurveyDuplicatorCommand
+     * @return void
      * @throws SurveyNotFound
      */
     public function execute(
         SurveyDuplicatorCommand $command
-    ) : SurveyDuplicatorCommand
+    ) : void
     {
         $surveyId = new SurveyId($command->getSurveyId());
         $survey = $this->surveyRepository->search($surveyId);
@@ -35,9 +35,9 @@ final class SurveyDuplicator
         }
 
         $duplicatedSurvey = new Survey(
-            (new SurveyId())->value(),
-            $survey->name(),
-            $survey->description() . ' duplicated',
+            SurveyId::random(),
+            $survey->name() . ' (draft)',
+            $survey->description(),
             $survey->enabled()
         );
 
