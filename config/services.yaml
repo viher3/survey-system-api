@@ -21,6 +21,9 @@ services:
     SurveySystem\Apps\Api\:
         resource: '../apps/http/api/src/'
 
+    SurveySystem\Apps\Cli\:
+        resource: '../apps/cli/src/'
+
     SurveySystem\:
         resource: '../src/'
         exclude:

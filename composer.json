@@ -51,7 +51,8 @@
     "autoload": {
         "psr-4": {
             "SurveySystem\\": "src/",
-            "SurveySystem\\Apps\\Api\\": "apps/http/api/src"
+            "SurveySystem\\Apps\\Api\\": "apps/http/api/src",
+            "SurveySystem\\Apps\\Cli\\": "apps/cli/src"
         }
     },
     "autoload-dev": {
