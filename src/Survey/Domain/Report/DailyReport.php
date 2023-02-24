@@ -3,6 +3,7 @@
 namespace SurveySystem\Survey\Domain\Report;
 
 use SurveySystem\Shared\Domain\Aggregate\AggregateRoot;
+use SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestionId;
 
 class DailyReport extends AggregateRoot
 {
@@ -10,22 +11,24 @@ class DailyReport extends AggregateRoot
     private float $mode;
     private float $average;
     private string $questionId;
+    private ?string $values;
     private \DateTime $createdAt;
     private \DateTimeInterface $date;
 
     /**
      * @param string $id
-     * @param string $questionId
+     * @param SurveyQuestionId $questionId
      * @param float $average
      * @param float $mode
      * @param \DateTimeInterface $date
      */
     public function __construct(
         string $id,
-        string $questionId,
+        SurveyQuestionId $questionId,
         float $average,
         float $mode,
-        \DateTimeInterface $date
+        \DateTimeInterface $date,
+        array $values = []
     )
     {
         $this->id = $id;
@@ -33,7 +36,8 @@ class DailyReport extends AggregateRoot
         $this->mode = $mode;
         $this->average = $average;
         $this->createdAt = new \DateTime();
-        $this->questionId = $questionId;
+        $this->questionId = $questionId->value();
+        $this->values = $values ? json_encode($values) : null;
     }
 
     /**
@@ -82,5 +86,13 @@ class DailyReport extends AggregateRoot
     public function getDate(): \DateTimeInterface
     {
         return $this->date;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getValues(): ?string
+    {
+        return $this->values;
     }
 }

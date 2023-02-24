@@ -1,0 +1,3 @@
+services:
+
+  SurveySystem\Survey\Domain\Report\DailyReport: '@SurveySystem\Survey\Infrastructure\Persistence\DoctrineDailyReportRepository'

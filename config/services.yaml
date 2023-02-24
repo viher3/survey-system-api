@@ -6,9 +6,7 @@
 parameters:
 
 imports:
-    - { resource: 'services/repositories/survey.yaml' }
-    - { resource: 'services/repositories/surveyQuestion.yaml' }
-    - { resource: 'services/repositories/surveyFulfillment.yaml' }
+    - { resource: 'services/repositories/' }
 
 services:
     # default configuration for services in *this* file

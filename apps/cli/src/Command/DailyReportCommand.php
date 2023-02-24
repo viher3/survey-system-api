@@ -2,12 +2,12 @@
 
 namespace SurveySystem\Apps\Cli\Command;
 
-use SurveySystem\Survey\Application\Report\Daily\DailyReportGenerator;
 use SurveySystem\Survey\Domain\Survey\SurveyId;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use SurveySystem\Survey\Application\Report\Daily\DailyReportGenerator;
 
 class DailyReportCommand extends Command
 {
@@ -23,8 +23,7 @@ class DailyReportCommand extends Command
     protected function configure(): void
     {
         $this->addArgument('surveyId', InputArgument::REQUIRED);
-        $this->addArgument('initDate', InputArgument::REQUIRED);
-        $this->addArgument('endDate', InputArgument::REQUIRED);
+        $this->addArgument('date', InputArgument::REQUIRED);
     }
 
     /**
@@ -36,8 +35,9 @@ class DailyReportCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $surveyId = new SurveyId($input->getArgument('surveyId'));
-        $initDate = new \DateTime($input->getArgument('initDate'));
-        $endDate = new \DateTime($input->getArgument('endDate'));
+        $initDate = new \DateTime($input->getArgument('date'));
+        $endDate = clone $initDate;
+        $endDate->setTime(23,59,59);
 
         $output->writeln('Generating ...');
 
