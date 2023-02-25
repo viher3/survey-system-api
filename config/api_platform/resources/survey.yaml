@@ -12,7 +12,7 @@ SurveySystem\Survey\Domain\Survey\Survey:
       controller: SurveySystem\Apps\Api\Controller\Survey\GetSurveyListController
       defaults:
         _api_receive: false
-      swagger_context:
+      openapi_context:
         summary: 'Get Surveys list'
         description: ''
         parameters: [ ]
@@ -29,12 +29,29 @@ SurveySystem\Survey\Domain\Survey\Survey:
       controller: SurveySystem\Apps\Api\Controller\Survey\GetSurveyDetailByIdController
       defaults:
         _api_receive: false
-      swagger_context:
+      openapi_context:
         summary: 'Get Survey detail by id'
         description: ''
         parameters: []
         responses:
           200:
             description: 'Survey detail'
+          400:
+            description: 'Incorrect Parameters'
+
+    post_duplicate_survey:
+      method: 'POST'
+      path: '/survey/duplicate/{id}'
+      schemes: [ 'https', 'http' ]
+      controller: SurveySystem\Apps\Api\Controller\Survey\PostSurveyDuplicatorController
+      defaults:
+        _api_receive: false
+      openapi_context:
+        summary: 'Duplicate Survey by id'
+        description: ''
+        parameters: []
+        responses:
+          200:
+            description: 'Survey duplicated correctly'
           400:
             description: 'Incorrect Parameters'
