@@ -20,6 +20,26 @@ class DoctrineDailyReportRepository extends DoctrineRepository implements DailyR
     }
 
     /**
+     * @param \DateTimeInterface $date
+     * @return void
+     */
+    public function deleteByDay(\DateTimeInterface $date)
+    {
+        $date->setTime(0,0,0);
+        $endDate = clone $date;
+        $endDate->setTime(23,59,59);
+
+        $this->getRepository()->createQueryBuilder('q')
+                ->where('q.date >= :initDate')
+                ->andWhere('q.date <= :endDate')
+                ->setParameter('initDate', $date)
+                ->setParameter('endDate', $endDate)
+                ->delete()
+                ->getQuery()
+                ->execute();
+    }
+
+    /**
      * @param array $filters
      * @return int
      * @throws \Doctrine\ORM\NoResultException

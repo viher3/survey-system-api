@@ -61,6 +61,11 @@ class DailyReportGenerator
             return;
         }
 
+        // delete existing records
+        $this->writeLn('Removing existing records ...');
+        $this->dailyReportRepository->deleteByDay($initDate);
+        $this->writeLn('Done!');
+
         $questionMarks = []; // values, total, summation
 
         /** @var SurveyFulfillment $surveyFulfillment */
