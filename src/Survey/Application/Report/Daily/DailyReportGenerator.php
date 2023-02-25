@@ -27,7 +27,7 @@ class DailyReportGenerator
     public function __construct(
         SurveyFulfillmentDetailFinder $finder,
         SurveyFulfillmentRepository   $surveyFulfillmentRepository,
-        DailyReportRepository $dailyReportRepository
+        DailyReportRepository         $dailyReportRepository
     )
     {
         $this->output = null;
@@ -121,8 +121,8 @@ class DailyReportGenerator
             $average = round($questionData['summation'] / $questionData['total'], 2);
 
             $modes = [];
-            foreach($questionData['values'] as $value){
-                if(!isset($moda[$value])){
+            foreach ($questionData['values'] as $value) {
+                if (!isset($moda[$value])) {
                     $modes[$value] = 1;
                     continue;
                 }
@@ -134,7 +134,7 @@ class DailyReportGenerator
             $maxMode = 0;
             $maxModeValue = 0;
 
-            foreach($modes as $replyValue => $total) {
+            foreach ($modes as $replyValue => $total) {
                 if ($total > $maxMode) {
                     $maxMode = $total;
                     $maxModeValue = $replyValue;
@@ -143,23 +143,25 @@ class DailyReportGenerator
 
             // persist
             $date = clone $initDate;
-            $date->setTime(0,0,0);
+            $date->setTime(0, 0, 0);
 
-            try{
+            try {
                 $this->writeLn('Saving ' . $questionId . ' question report ...');
                 $dailyReport = new DailyReport(
                     Uuid::random(),
                     new SurveyQuestionId($questionId),
-                    (float) $average,
-                    (float) $maxModeValue,
+                    $surveyId,
+                    (float)$average,
+                    (float)$maxModeValue,
                     $date,
                     $questionData['values']
                 );
 
                 $this->dailyReportRepository->save($dailyReport);
                 $this->writeLn('OK!');
-            }catch (\Exception $e){
-                var_dump($dailyReport, $e->getMessage());die;
+            } catch (\Exception $e) {
+                var_dump($dailyReport, $e->getMessage());
+                die;
                 $this->writeLn($e->getMessage());
             }
         }

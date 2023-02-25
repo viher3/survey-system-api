@@ -2,6 +2,7 @@
 
 namespace SurveySystem\Survey\Domain\Report;
 
+use SurveySystem\Survey\Domain\Survey\SurveyId;
 use SurveySystem\Shared\Domain\Aggregate\AggregateRoot;
 use SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestionId;
 
@@ -10,6 +11,7 @@ class DailyReport extends AggregateRoot
     private string $id;
     private float $mode;
     private float $average;
+    private string $surveyId;
     private string $questionId;
     private ?string $values;
     private \DateTime $createdAt;
@@ -18,13 +20,16 @@ class DailyReport extends AggregateRoot
     /**
      * @param string $id
      * @param SurveyQuestionId $questionId
+     * @param SurveyId $surveyId
      * @param float $average
      * @param float $mode
      * @param \DateTimeInterface $date
+     * @param array $values
      */
     public function __construct(
         string $id,
         SurveyQuestionId $questionId,
+        SurveyId $surveyId,
         float $average,
         float $mode,
         \DateTimeInterface $date,
@@ -36,6 +41,7 @@ class DailyReport extends AggregateRoot
         $this->mode = $mode;
         $this->average = $average;
         $this->createdAt = new \DateTime();
+        $this->surveyId = $surveyId->value();
         $this->questionId = $questionId->value();
         $this->values = $values ? json_encode($values) : null;
     }
@@ -94,5 +100,13 @@ class DailyReport extends AggregateRoot
     public function getValues(): ?string
     {
         return $this->values;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSurveyId(): string
+    {
+        return $this->surveyId;
     }
 }

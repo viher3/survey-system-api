@@ -7,6 +7,7 @@
     <entity name="SurveySystem\Survey\Domain\Report\DailyReport" table="daily_reports">
         <id name="id" type="string" column="id" length="36"/>
         <id name="questionId" type="string" column="question_id" length="36"/>
+        <id name="surveyId" type="string" column="survey_id" length="36"/>
         <field name="average" type="float" column="average" />
         <field name="mode" type="float" column="mode" />
         <field name="date" column="date" type="datetime"/>
