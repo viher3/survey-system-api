@@ -145,15 +145,16 @@ class DailyReportGenerator
                 $dailyReport = new DailyReport(
                     Uuid::random(),
                     new SurveyQuestionId($questionId),
-                    $average,
+                    (float) $average,
                     (float) $maxModeValue,
                     $date,
                     $questionData['values']
                 );
-                var_dump($dailyReport);die;
+
                 $this->dailyReportRepository->save($dailyReport);
                 $this->writeLn('OK!');
             }catch (\Exception $e){
+                var_dump($dailyReport, $e->getMessage());die;
                 $this->writeLn($e->getMessage());
             }
         }

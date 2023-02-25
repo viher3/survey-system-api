@@ -3,7 +3,6 @@
 namespace SurveySystem\Survey\Infrastructure\Persistence;
 
 use Doctrine\ORM\EntityRepository;
-use SurveySystem\Survey\Domain\Survey\Survey;
 use SurveySystem\Survey\Domain\Report\DailyReport;
 use SurveySystem\Survey\Domain\Report\DailyReportRepository;
 use SurveySystem\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
@@ -37,12 +36,12 @@ class DoctrineDailyReportRepository extends DoctrineRepository implements DailyR
     }
 
     /**
-     * @param DailyReport $survey
+     * @param DailyReport $report
      * @return void
      */
-    public function save(DailyReport $survey): void
+    public function save(DailyReport $report): void
     {
-        $this->persist($survey);
+        $this->persist($report);
     }
 
     /**
