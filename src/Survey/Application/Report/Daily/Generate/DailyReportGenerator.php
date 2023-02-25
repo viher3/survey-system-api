@@ -1,16 +1,16 @@
 <?php
 
-namespace SurveySystem\Survey\Application\Report\Daily;
+namespace SurveySystem\Survey\Application\Report\Daily\Generate;
 
 use SurveySystem\Shared\Domain\ValueObject\Uuid;
+use SurveySystem\Survey\Application\SurveyFulfillment\Find\SurveyFulfillmentDetailFinder;
 use SurveySystem\Survey\Domain\Report\DailyReport;
 use SurveySystem\Survey\Domain\Report\DailyReportRepository;
 use SurveySystem\Survey\Domain\Survey\SurveyId;
-use SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestionId;
-use Symfony\Component\Console\Output\OutputInterface;
 use SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillment;
 use SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillmentRepository;
-use SurveySystem\Survey\Application\SurveyFulfillment\Find\SurveyFulfillmentDetailFinder;
+use SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestionId;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class DailyReportGenerator
 {
@@ -160,8 +160,6 @@ class DailyReportGenerator
                 $this->dailyReportRepository->save($dailyReport);
                 $this->writeLn('OK!');
             } catch (\Exception $e) {
-                var_dump($dailyReport, $e->getMessage());
-                die;
                 $this->writeLn($e->getMessage());
             }
         }

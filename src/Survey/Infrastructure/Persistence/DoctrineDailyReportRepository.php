@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityRepository;
 use SurveySystem\Survey\Domain\Report\DailyReport;
 use SurveySystem\Survey\Domain\Report\DailyReportRepository;
 use SurveySystem\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
+use SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestion;
 
 class DoctrineDailyReportRepository extends DoctrineRepository implements DailyReportRepository
 {
@@ -15,8 +16,24 @@ class DoctrineDailyReportRepository extends DoctrineRepository implements DailyR
      */
     public function getList(array $filters = []) : array
     {
-        $queryBuilder = $this->getRepository()->createQueryBuilder('s')->orderBy('s.createdAt', 'ASC');
-        return $queryBuilder->getQuery()->getResult();
+        $queryBuilder = $this->getRepository()
+                             ->createQueryBuilder('q')
+                             ->select('q.id, q.questionId, q.date, q.average, q.mode, qst.question, qst.position as questionPosition')
+                             ->innerJoin(SurveyQuestion::class, 'qst', 'WITH', 'qst.id = q.questionId')
+                             ->orderBy('q.createdAt', 'ASC');
+
+        if(!empty($filters['surveyId'])){
+            $queryBuilder->andWhere('q.surveyId = :surveyId')->setParameter('surveyId', $filters['surveyId']);
+        }
+        if(!empty($filters['initDate'])){
+            $queryBuilder->andWhere('q.date >= :initDate')->setParameter('initDate', $filters['initDate']);
+        }
+        if(!empty($filters['endDate'])){
+            $filters['endDate']->setTime(23,59,59);
+            $queryBuilder->andWhere('q.date <= :endDate')->setParameter('endDate', $filters['endDate']);
+        }
+
+        return $queryBuilder->getQuery()->getArrayResult();
     }
 
     /**
@@ -42,8 +59,6 @@ class DoctrineDailyReportRepository extends DoctrineRepository implements DailyR
     /**
      * @param array $filters
      * @return int
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function total(array $filters = []) : int
     {

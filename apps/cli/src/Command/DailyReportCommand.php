@@ -2,12 +2,12 @@
 
 namespace SurveySystem\Apps\Cli\Command;
 
+use SurveySystem\Survey\Application\Report\Daily\Generate\DailyReportGenerator;
 use SurveySystem\Survey\Domain\Survey\SurveyId;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use SurveySystem\Survey\Application\Report\Daily\DailyReportGenerator;
 
 class DailyReportCommand extends Command
 {
