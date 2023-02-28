@@ -23,7 +23,7 @@ class DailyReportCommand extends Command
     protected function configure(): void
     {
         $this->addArgument('surveyId', InputArgument::REQUIRED);
-        $this->addArgument('date', InputArgument::REQUIRED);
+        $this->addArgument('date', InputArgument::OPTIONAL);
     }
 
     /**
@@ -35,7 +35,8 @@ class DailyReportCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $surveyId = new SurveyId($input->getArgument('surveyId'));
-        $initDate = new \DateTime($input->getArgument('date'));
+        $initDate = $input->getArgument('date') ? new \DateTime($input->getArgument('date')) : new \DateTime();
+        $initDate->setTime(0,0,0);
         $endDate = clone $initDate;
         $endDate->setTime(23,59,59);
 
