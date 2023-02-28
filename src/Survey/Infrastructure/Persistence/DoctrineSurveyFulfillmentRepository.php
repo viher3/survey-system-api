@@ -3,11 +3,12 @@
 namespace SurveySystem\Survey\Infrastructure\Persistence;
 
 use Doctrine\ORM\EntityRepository;
+use SurveySystem\Survey\Domain\Survey\SurveyId;
+use SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestion;
 use SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillment;
 use SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillmentReply;
 use SurveySystem\Survey\Domain\SurveyFulfillment\SurveyFulfillmentRepository;
 use SurveySystem\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
-use SurveySystem\Survey\Domain\SurveyQuestion\SurveyQuestion;
 
 class DoctrineSurveyFulfillmentRepository extends DoctrineRepository implements SurveyFulfillmentRepository
 {
@@ -52,7 +53,7 @@ class DoctrineSurveyFulfillmentRepository extends DoctrineRepository implements 
     public function listWithReplies(string $id, array $filters = []) : array
     {
         $surveyFulfillments = $this->getRepository()->createQueryBuilder('f')
-                    ->select('f.id, q.question, r.id AS questionId, r.id AS replyId, r.values, f.createdAt, q.position as questionPosition')
+                    ->select('f.id, q.question, q.id AS questionId, r.id AS replyId, r.values, f.createdAt, q.position as questionPosition')
                     ->leftjoin(SurveyFulfillmentReply::class, 'r', 'WITH', 'r.surveyFulfillment = f.id')
                     ->leftJoin(SurveyQuestion::class, 'q', 'WITH', 'r.surveyQuestionId = q.id')
                     ->where('f.id = :id')
@@ -110,6 +111,32 @@ class DoctrineSurveyFulfillmentRepository extends DoctrineRepository implements 
         }catch (\Exception $e){
             return 0;
         }
+    }
+
+    /**
+     * @param SurveyId $id
+     * @param array $filters
+     * @return array
+     */
+    public function findAllSurveyFulfillments(
+        SurveyId $id,
+        array $filters = []
+    ) :  array
+    {
+        $qb = $this->getRepository()
+                   ->createQueryBuilder('q')
+                   ->where('q.survey = :surveyId')
+                   ->setParameter('surveyId' , $id->value());
+
+        if(!empty($filters['initDate'])){
+            $qb->andWhere('q.createdAt >= :initDate')->setParameter('initDate', $filters['initDate']);
+        }
+        if(!empty($filters['endDate'])){
+            $filters['endDate']->setTime(23,59,59);
+            $qb->andWhere('q.createdAt <= :endDate')->setParameter('endDate', $filters['endDate']);
+        }
+
+        return $qb->getQuery()->getResult();
     }
 
     /**

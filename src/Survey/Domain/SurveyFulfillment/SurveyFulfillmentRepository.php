@@ -3,6 +3,7 @@
 namespace SurveySystem\Survey\Domain\SurveyFulfillment;
 
 use Doctrine\ORM\EntityRepository;
+use SurveySystem\Survey\Domain\Survey\SurveyId;
 
 interface SurveyFulfillmentRepository
 {
@@ -36,4 +37,11 @@ interface SurveyFulfillmentRepository
      * @return int
      */
     public function totalWithReplies(string $id, array $filters = []) : int;
+
+    /**
+     * @param SurveyId $id
+     * @param array $filters
+     * @return array
+     */
+    public function findAllSurveyFulfillments(SurveyId $id, array $filters = []) :  array;
 }

@@ -6,9 +6,7 @@
 parameters:
 
 imports:
-    - { resource: 'services/repositories/survey.yaml' }
-    - { resource: 'services/repositories/surveyQuestion.yaml' }
-    - { resource: 'services/repositories/surveyFulfillment.yaml' }
+    - { resource: 'services/repositories/' }
 
 services:
     # default configuration for services in *this* file
@@ -20,6 +18,9 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     SurveySystem\Apps\Api\:
         resource: '../apps/http/api/src/'
+
+    SurveySystem\Apps\Cli\:
+        resource: '../apps/cli/src/'
 
     SurveySystem\:
         resource: '../src/'

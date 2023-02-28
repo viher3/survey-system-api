@@ -35,6 +35,12 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Survey/Infrastructure/Persistence/Doctrine/SurveyFulfillment'
                         prefix: 'SurveySystem\Survey\Domain\SurveyFulfillment'
                         alias: SurveyFulfillment
+                    DailyReport:
+                        is_bundle: false
+                        type: xml
+                        dir: '%kernel.project_dir%/src/Survey/Infrastructure/Persistence/Doctrine/Report'
+                        prefix: 'SurveySystem\Survey\Domain\Report'
+                        alias: DailyReport
 
 when@test:
     doctrine:

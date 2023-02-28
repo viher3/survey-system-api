@@ -4,7 +4,7 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=8.0",
+        "php": ">=8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/core": "^2.6",
@@ -51,7 +51,8 @@
     "autoload": {
         "psr-4": {
             "SurveySystem\\": "src/",
-            "SurveySystem\\Apps\\Api\\": "apps/http/api/src"
+            "SurveySystem\\Apps\\Api\\": "apps/http/api/src",
+            "SurveySystem\\Apps\\Cli\\": "apps/cli/src"
         }
     },
     "autoload-dev": {
