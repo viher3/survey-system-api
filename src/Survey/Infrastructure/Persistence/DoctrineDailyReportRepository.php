@@ -20,7 +20,7 @@ class DoctrineDailyReportRepository extends DoctrineRepository implements DailyR
                              ->createQueryBuilder('q')
                              ->select('q.id, q.questionId, q.date, q.average, q.mode, qst.question, qst.position as questionPosition')
                              ->innerJoin(SurveyQuestion::class, 'qst', 'WITH', 'qst.id = q.questionId')
-                             ->orderBy('q.createdAt', 'DESC');
+                             ->orderBy('q.date', 'ASC');
 
         if(!empty($filters['surveyId'])){
             $queryBuilder->andWhere('q.surveyId = :surveyId')->setParameter('surveyId', $filters['surveyId']);
